@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-const cors = require('cors'); //corsミドルウェアを追加
+const cors = require('cors');
 require('dotenv').config();
 
 // 接続情報を設定
@@ -15,9 +15,8 @@ router.get('/', async (req, res) => {
 const database = client.db('notes');
 const notes = database.collection('notes');
 
-// idが１のドキュメントを取得
-const query = { id: 1 };
-const note = await notes.findOne(query);
+
+const note = await notes.find({}).toArray();
 
 res.json(note);
 })
